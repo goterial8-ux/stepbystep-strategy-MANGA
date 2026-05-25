@@ -201,10 +201,19 @@ export default function App() {
   };
 
   const handleApproveAndLock = () => {
-    updateStageStatus(currentStageId, 'locked');
-    updateState({
-      lockedData: { ...state.lockedData, [currentStageId]: true }
-    });
+    if (currentStageId === 'script_writer') {
+      const assembledContent = state.scriptParts.map(p => `## Part ${p.partNumber}: ${p.partTitle}\n\n${p.draftText}`).join('\n\n');
+      updateState({ 
+        fullScript: assembledContent,
+        stageStatuses: { ...state.stageStatuses, script_writer: 'locked' as const },
+        lockedData: { ...state.lockedData, script_writer: true }
+      });
+    } else {
+      updateStageStatus(currentStageId, 'locked');
+      updateState({
+        lockedData: { ...state.lockedData, [currentStageId]: true }
+      });
+    }
   };
 
   const handleSendToNext = () => {

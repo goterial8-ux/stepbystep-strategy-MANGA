@@ -57,6 +57,12 @@ export function RightPanel({
   const isExportStage = currentStageId === 'clean_export';
   const isScriptStage = currentStageId === 'script_writer';
 
+  const [activeTab, setActiveTab] = React.useState<'parts' | 'full'>('parts');
+
+  React.useEffect(() => {
+    setActiveTab('parts');
+  }, [currentStageId]);
+
   return (
     <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-slate-100">
       {/* Header */}
@@ -167,6 +173,34 @@ export function RightPanel({
 
       {/* Editor Area */}
       <div className="flex-1 min-h-0 overflow-hidden flex flex-col px-6 pb-6">
+        {isScriptStage && (
+          <div className="flex items-center gap-2 border-b border-slate-200 mb-2 shrink-0">
+            <button
+              onClick={() => setActiveTab('parts')}
+              className={`px-4 py-3 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+                activeTab === 'parts' 
+                  ? 'border-slate-950 text-slate-950 font-black' 
+                  : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
+              }`}
+            >
+              🛠️ Parts Editor ({scriptParts.filter(p => p.draftText && p.draftText.length > 0).length} / {scriptParts.length})
+            </button>
+            <button
+              onClick={() => {
+                onAssembleScript();
+                setActiveTab('full');
+              }}
+              className={`px-4 py-3 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+                activeTab === 'full' 
+                  ? 'border-slate-950 text-slate-950 font-black' 
+                  : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
+              }`}
+            >
+              📝 Full Assembled Script ({stageContent ? stageContent.length : 0} chars)
+            </button>
+          </div>
+        )}
+
         {isExportStage ? (
           <div className="max-w-2xl mx-auto w-full flex flex-col gap-6 mt-4">
             <div className="bg-white border border-slate-200 p-8 shadow-sm">
@@ -204,7 +238,7 @@ export function RightPanel({
                </ul>
             </div>
           </div>
-        ) : isScriptStage ? (
+        ) : isScriptStage && activeTab === 'parts' ? (
           <ScriptWriterPanel 
              parts={scriptParts}
              updatePart={updateScriptPart}
@@ -216,7 +250,10 @@ export function RightPanel({
              onClearPart={onClearPart}
              isBatchGenerating={isBatchGenerating}
              onCheckPart={onCheckPart}
-             onAssembleScript={onAssembleScript}
+             onAssembleScript={() => {
+                onAssembleScript();
+                setActiveTab('full');
+             }}
              stageStatus={stageStatus}
           />
         ) : (
