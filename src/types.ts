@@ -55,6 +55,7 @@ export interface CleanExportSettings {
   keepAvatarMarkers: boolean;
   removeAvatarMarkersButKeepText: boolean;
   removeAvatarTextCompletely: boolean;
+  removeTechnicalResidue?: boolean;
 }
 
 export interface PromptRegistry {
@@ -6862,6 +6863,7 @@ export const INITIAL_STATE: ProjectState = {
     keepAvatarMarkers: false,
     removeAvatarMarkersButKeepText: true,
     removeAvatarTextCompletely: false,
+    removeTechnicalResidue: true,
   },
   finalCleanScript: '',
   

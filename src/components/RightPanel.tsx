@@ -33,7 +33,8 @@ export function generateCleanScript(scriptParts: ScriptPart[], exportSettings: C
       ].some(phrase => lowerPara.includes(phrase)) 
       || /^\s*[-*=]{3,}\s*$/.test(para); // decorative lines like --- or === or ***
 
-      if (isResidue) continue;
+      const shouldRemoveResidue = exportSettings.removeTechnicalResidue !== false;
+      if (shouldRemoveResidue && isResidue) continue;
 
       // 2. Avatar logic
       const avatarRegex = /^\s*\[(AVATAR|АВАТАР|Аватар|Person|[A-Za-zА-Яа-яЁё0-9_\s-]+)\]\s*:?\s*/i;
@@ -327,6 +328,23 @@ export function RightPanel({
                     <div className="flex flex-col">
                       <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Include Part Headings</span>
                       <span className="text-[10px] text-slate-500 mt-0.5">Keep headings like "Part X: Title" in the final document.</span>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={exportSettings.removeTechnicalResidue !== false} 
+                      onChange={e => {
+                        updateExportSettings({ 
+                          removeTechnicalResidue: e.target.checked
+                        });
+                      }} 
+                      className="mt-0.5 rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" 
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Удалить технический мусор / Filter Technical Residue</span>
+                      <span className="text-[10px] text-slate-500 mt-0.5">Automatically remove QA summaries, debug/technical notes, and decorative dividers from the output.</span>
                     </div>
                   </label>
 
