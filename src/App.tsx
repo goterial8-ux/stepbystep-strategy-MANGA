@@ -365,17 +365,33 @@ export default function App() {
     const parts: ScriptPart[] = [];
     const currentState = stateRef.current;
     
-    // 1. Search for a structured list of parts (supports English/Russian labels and various delimiters)
-    // Looking for lines like "Part 1: Title" or "Часть 1. Название"
-    // Using a more restrictive regex to avoid matching "Part" in descriptions
-    const partListRegex = /(?:^|\n)\s*(?:Part|Часть|Stage|Этап)\s*(\d+)\s*[:.-]\s*([^\n]+)/gi;
+    // Supporting spelled-out parts (e.g., "PART ONE", "ЧАСТЬ ОДИН", "Part 1")
+    const wordToNum: Record<string, number> = {
+      'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+      'один': 1, 'два': 2, 'три': 3, 'четыре': 4, 'пять': 5, 'шесть': 6, 'семь': 7, 'восемь': 8, 'девять': 9, 'десять': 10,
+      'первая': 1, 'вторая': 2, 'третья': 3, 'четвертая': 4, 'пятая': 5, 'шестая': 6, 'седьмая': 7, 'восьмая': 8, 'девятая': 9, 'десятая': 10,
+      'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, 'v': 5, 'vi': 6, 'vii': 7, 'viii': 8, 'ix': 9, 'x': 10
+    };
+
+    // Support lines like:
+    // "PART ONE — TITLE"
+    // "Part 1: Title"
+    // "Часть первая. Название"
+    const partListRegex = /(?:^|\n)\s*(?:Part|Часть|Stage|Этап)\s*(one|two|three|four|five|six|seven|eight|nine|ten|один|два|три|четыре|пять|шесть|семь|восемь|девять|десять|первая|вторая|третья|четвертая|пятая|шестая|седьмая|восьмая|девятая|десятая|i|ii|iii|iv|v|vi|vii|viii|ix|x|\d+)\s*[:.-—\s]\s*([^\n]+)/gi;
     let match;
     const matches: { number: number, title: string }[] = [];
     
     while ((match = partListRegex.exec(currentState.storyPlan)) !== null) {
-      matches.push({ number: parseInt(match[1]), title: match[2].trim() });
+      const pstr = match[1].toLowerCase();
+      const num = wordToNum[pstr] || parseInt(pstr) || 0;
+      if (num > 0) {
+        matches.push({ number: num, title: match[2].trim() });
+      }
     }
     
+    // Sort matches by part number to ensure correct order
+    matches.sort((a, b) => a.number - b.number);
+
     if (matches.length > 0) {
       matches.forEach((m) => {
         parts.push({
@@ -397,14 +413,14 @@ export default function App() {
       const countRegex = /(?:Number of Parts|Количество частей|Parts|Частей)\s*[:.-]?\s*(\d+|Девять|Восемь|Семь|Шесть|Пять|Четыре|Три|Два|Один)/i;
       const countMatch = currentState.storyPlan.match(countRegex);
       
-      let numParts = 15; // default fallback if everything fails
+      let numParts = 9; // default fallback if everything fails (canon is 9 parts)
       if (countMatch) {
          const val = countMatch[1].toLowerCase();
          const russianMap: Record<string, number> = {
            'один': 1, 'два': 2, 'три': 3, 'четыре': 4, 'пять': 5, 
            'шесть': 6, 'семь': 7, 'восемь': 8, 'девять': 9, 'десять': 10
          };
-         numParts = russianMap[val] || parseInt(val) || 15;
+         numParts = russianMap[val] || parseInt(val) || 9;
       }
       
       for (let i = 1; i <= numParts; i++) {
