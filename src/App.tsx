@@ -208,6 +208,10 @@ export default function App() {
   };
 
   const handleSendToNext = () => {
+    const currentState = stateRef.current;
+    if (currentState.stageStatuses[currentStageId] !== 'locked') {
+      updateStageStatus(currentStageId, 'locked');
+    }
     const currentIndex = STAGES.findIndex(s => s.id === currentStageId);
     if (currentIndex >= 0 && currentIndex < STAGES.length - 1) {
       const nextStage = STAGES[currentIndex + 1].id;
@@ -643,6 +647,7 @@ export default function App() {
             onAnalyze={handleAnalyze}
             onApplyRepair={handleApplyRepair}
             onApproveAnyway={handleApproveAnyway}
+            onProceed={handleSendToNext}
           />
         </div>
       </div>

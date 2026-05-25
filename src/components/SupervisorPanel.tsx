@@ -8,9 +8,10 @@ interface SupervisorPanelProps {
   onAnalyze: () => void;
   onApplyRepair: () => void;
   onApproveAnyway: () => void;
+  onProceed?: () => void;
 }
 
-export function SupervisorPanel({ report, isGenerating, onAnalyze, onApplyRepair, onApproveAnyway }: SupervisorPanelProps) {
+export function SupervisorPanel({ report, isGenerating, onAnalyze, onApplyRepair, onApproveAnyway, onProceed }: SupervisorPanelProps) {
   
   if (isGenerating) {
     return (
@@ -78,7 +79,10 @@ export function SupervisorPanel({ report, isGenerating, onAnalyze, onApplyRepair
              </>
            )}
            {report.status === 'ok' && (
-             <button className="px-4 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 text-[11px] font-bold transition-all flex items-center gap-1.5">
+             <button 
+               onClick={onProceed}
+               className="px-4 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+             >
                <PlayCircle className="w-3.5 h-3.5" /> Proceed safely
              </button>
            )}
