@@ -58,7 +58,7 @@ export function RightPanel({
   const isScriptStage = currentStageId === 'script_writer';
 
   return (
-    <main className="flex-1 flex flex-col min-w-0 bg-slate-100">
+    <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-slate-100">
       {/* Header */}
       <div className="px-6 py-4 flex justify-between items-center bg-slate-100 shrink-0">
         <div>

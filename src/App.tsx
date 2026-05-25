@@ -365,6 +365,14 @@ export default function App() {
     const parts: ScriptPart[] = [];
     const currentState = stateRef.current;
     
+    // Crop story plan to exclude everything from Section 13 / HIDDEN CARD TIMING MAP onwards
+    let planText = currentState.storyPlan || '';
+    const cutOffRegex = /(?:Thirteen\.|13\.|Тринадцать\.|Тринадцатая\.|Thirteen\s+HIDDEN|13\s+HIDDEN|HIDDEN\s+CARD|ESCALATION\s+MAP)/i;
+    const cutOffMatch = planText.match(cutOffRegex);
+    if (cutOffMatch && cutOffMatch.index !== undefined) {
+      planText = planText.substring(0, cutOffMatch.index);
+    }
+
     // Supporting spelled-out parts (e.g., "PART ONE", "ЧАСТЬ ОДИН", "Part 1")
     const wordToNum: Record<string, number> = {
       'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
@@ -380,12 +388,16 @@ export default function App() {
     const partListRegex = /(?:^|\n)\s*(?:Part|Часть|Stage|Этап)\s*(one|two|three|four|five|six|seven|eight|nine|ten|один|два|три|четыре|пять|шесть|семь|восемь|девять|десять|первая|вторая|третья|четвертая|пятая|шестая|седьмая|восьмая|девятая|десятая|i|ii|iii|iv|v|vi|vii|viii|ix|x|\d+)\s*[:.-—\s]\s*([^\n]+)/gi;
     let match;
     const matches: { number: number, title: string }[] = [];
+    const seenNumbers = new Set<number>();
     
-    while ((match = partListRegex.exec(currentState.storyPlan)) !== null) {
+    while ((match = partListRegex.exec(planText)) !== null) {
       const pstr = match[1].toLowerCase();
       const num = wordToNum[pstr] || parseInt(pstr) || 0;
       if (num > 0) {
-        matches.push({ number: num, title: match[2].trim() });
+        if (!seenNumbers.has(num)) {
+          seenNumbers.add(num);
+          matches.push({ number: num, title: match[2].trim() });
+        }
       }
     }
     
@@ -631,7 +643,7 @@ export default function App() {
           saveStatus={saveStatus}
         />
         
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
           <RightPanel 
             currentStageId={currentStageId}
             stageName={stageName}

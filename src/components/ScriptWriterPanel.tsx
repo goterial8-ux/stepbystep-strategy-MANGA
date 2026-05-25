@@ -46,7 +46,10 @@ export function ScriptWriterPanel({
     }
     const part = parts[idx];
     const isCurrentlyGenerating = isBatchGenerating && !part.draftText && idx === parts.findIndex(p => !p.draftText);
-    return !!part.draftText || isCurrentlyGenerating || idx === 0;
+    if (isCurrentlyGenerating) return true;
+    
+    // Default: start collapsed if draft text is already present
+    return idx === 0 && !part.draftText;
   };
 
   const toggleExpandAll = (expand: boolean) => {
@@ -151,13 +154,16 @@ export function ScriptWriterPanel({
 
             <div 
               onClick={() => toggleExpand(idx)}
-              className="flex justify-between items-center border-b border-transparent pb-1 cursor-pointer select-none hover:bg-slate-50 transition-colors -mx-4 -mt-4 px-4 py-3"
+              className="flex justify-between items-center border-b border-transparent pb-1 cursor-pointer select-none hover:bg-slate-50 transition-colors -mx-4 -mt-4 px-4 py-3 min-w-0"
             >
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                Part {part.partNumber}: {part.partTitle}
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 min-w-0 flex-1 pr-4">
+                <span className="shrink-0 text-slate-400 font-mono text-xs font-bold bg-slate-100 px-1 py-0.5 rounded">Part {part.partNumber}</span>
+                <span className="truncate flex-1 text-slate-850" title={part.partTitle}>
+                  {part.partTitle}
+                </span>
                 <label 
                   onClick={e => e.stopPropagation()}
-                  className="text-[10px] font-normal flex items-center gap-1 text-slate-500 font-sans tracking-normal ml-2 cursor-pointer"
+                  className="shrink-0 text-[10px] font-normal flex items-center gap-1 text-slate-500 font-sans tracking-normal ml-2 cursor-pointer"
                 >
                   <input 
                     type="checkbox" 
@@ -165,10 +171,10 @@ export function ScriptWriterPanel({
                     onChange={e => updatePart(idx, { isComplete: e.target.checked })} 
                     className="rounded-sm border-slate-300" 
                   />
-                  Complete?
+                  Done?
                 </label>
               </h3>
-              <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center gap-2 shrink-0" onClick={e => e.stopPropagation()}>
                 <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 border rounded-sm ${
                   part.status === 'locked' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
                   part.status === 'approved' ? 'bg-blue-50 text-blue-700 border-blue-200' :
@@ -210,6 +216,9 @@ export function ScriptWriterPanel({
             
             {expanded && (
               <>
+                <div className="text-[12px] text-slate-600 bg-slate-50 p-3 border border-slate-100 rounded leading-relaxed mt-1">
+                  <span className="font-bold text-slate-800">Part Focus:</span> {part.partTitle}
+                </div>
                 <div className="relative group mt-2">
                   <textarea
                     className="w-full min-h-[140px] text-[13px] text-slate-700 leading-relaxed resize-y focus:outline-none focus:border-blue-500 p-2 border border-slate-200 hover:border-slate-300 rounded bg-slate-50/50 font-serif"
