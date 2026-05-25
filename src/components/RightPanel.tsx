@@ -3,6 +3,75 @@ import { StageId, StageStatus, CleanExportSettings, ScriptPart } from '../types'
 import { Check, Edit3, RefreshCw, Lock, Sparkles, Download } from 'lucide-react';
 import { ScriptWriterPanel } from './ScriptWriterPanel';
 
+export function generateCleanScript(scriptParts: ScriptPart[], exportSettings: CleanExportSettings): string {
+  if (!scriptParts || scriptParts.length === 0) return '';
+  const finalParts: string[] = [];
+
+  for (const part of scriptParts) {
+    if (!part.draftText || part.draftText.trim().length === 0) continue;
+
+    const cleanParagraphs: string[] = [];
+    const rawParagraphs = part.draftText.split(/\r?\n/);
+
+    for (const rawPara of rawParagraphs) {
+      const para = rawPara.trim();
+      if (!para) {
+        if (cleanParagraphs.length > 0 && cleanParagraphs[cleanParagraphs.length - 1] !== '') {
+          cleanParagraphs.push('');
+        }
+        continue;
+      }
+
+      // 1. Remove systemic or generation residue phrases / lines
+      const lowerPara = para.toLowerCase();
+      const isResidue = [
+        '[идет генерация]', 'идет генерация', '[generating part]', 'generating part',
+        'writing part', 'continue from', 'draft continues', 'unfinished',
+        'placeholder', 'debug', 'stage output', 'scene card',
+        'linter report', 'qa notes', '=== part', '----', '***', '###',
+        'scene one', 'scene two', 'stage five', 'output start', 'output end'
+      ].some(phrase => lowerPara.includes(phrase)) 
+      || /^\s*[-*=]{3,}\s*$/.test(para); // decorative lines like --- or === or ***
+
+      if (isResidue) continue;
+
+      // 2. Avatar logic
+      const avatarRegex = /^\s*\[(AVATAR|АВАТАР|Аватар|Person|[A-Za-zА-Яа-яЁё0-9_\s-]+)\]\s*:?\s*/i;
+      const hasAvatarTag = avatarRegex.test(para);
+
+      if (hasAvatarTag) {
+        if (exportSettings.removeAvatarTextCompletely) {
+          // Skip this paragraph entirely
+          continue;
+        } else if (exportSettings.removeAvatarMarkersButKeepText) {
+          // Replace matching marker but keep the rest of the text
+          const cleanedText = para.replace(avatarRegex, '');
+          if (cleanedText.trim()) {
+            cleanParagraphs.push(cleanedText.trim());
+          }
+          continue;
+        }
+      }
+
+      // Default: add original paragraph (or slightly trimmed)
+      cleanParagraphs.push(para);
+    }
+
+    // Now if this part has active text, add it
+    const partBody = cleanParagraphs.join('\n').trim();
+    if (partBody) {
+      if (exportSettings.keepPartHeadings) {
+        finalParts.push(`Part ${part.partNumber}: ${part.partTitle}\n\n${partBody}`);
+      } else {
+        finalParts.push(partBody);
+      }
+    }
+  }
+
+  return finalParts.join('\n\n\n');
+}
+
+
 interface RightPanelProps {
   currentStageId: StageId;
   stageName: string;
@@ -58,10 +127,43 @@ export function RightPanel({
   const isScriptStage = currentStageId === 'script_writer';
 
   const [activeTab, setActiveTab] = React.useState<'parts' | 'full'>('parts');
+  const [copied, setCopied] = React.useState(false);
 
   React.useEffect(() => {
     setActiveTab('parts');
   }, [currentStageId]);
+
+  const cleanedScriptText = React.useMemo(() => {
+    return generateCleanScript(scriptParts, exportSettings);
+  }, [scriptParts, exportSettings]);
+
+  const handleDownload = () => {
+    const text = generateCleanScript(scriptParts, exportSettings);
+    if (!text) {
+      alert("Сценарий пуст! Пожалуйста, сначала напишите части сценария.");
+      return;
+    }
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `clean_script_${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCopyToClipboard = () => {
+    const text = generateCleanScript(scriptParts, exportSettings);
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(err => {
+      console.error("Failed to copy text", err);
+    });
+  };
 
   return (
     <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-slate-100">
@@ -162,8 +264,8 @@ export function RightPanel({
 
           {isExportStage && (
             <button 
-                onClick={() => alert("Downloading clean script...")}
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white shadow-sm text-xs font-semibold transition-all flex items-center gap-2"
+                onClick={handleDownload}
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white shadow-sm text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Download className="w-4 h-4" /> Download Clean Script
               </button>
@@ -202,40 +304,142 @@ export function RightPanel({
         )}
 
         {isExportStage ? (
-          <div className="max-w-2xl mx-auto w-full flex flex-col gap-6 mt-4">
-            <div className="bg-white border border-slate-200 p-8 shadow-sm">
-               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6 border-b-2 border-slate-900 pb-2 flex items-center gap-2">
-                 Export Configuration
-               </h3>
-               <div className="flex flex-col gap-4">
-                  <label className="flex items-center gap-3">
-                    <input type="checkbox" checked={exportSettings.keepPartHeadings} onChange={e => updateExportSettings({ keepPartHeadings: e.target.checked })} className="rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500" />
-                    <span className="text-sm font-semibold text-slate-700">Include part headings</span>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full min-h-0 w-full mt-4 overflow-hidden">
+            {/* Left Column: Settings and Rules */}
+            <div className="lg:col-span-2 flex flex-col gap-4 overflow-y-auto pr-1">
+              <div className="bg-white border border-slate-200 p-6 shadow-sm rounded">
+                <h3 className="text-xs font-bold text-slate-850 uppercase tracking-widest mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                  ⚙️ Export Options
+                </h3>
+                <div className="flex flex-col gap-4">
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={exportSettings.keepPartHeadings} 
+                      onChange={e => {
+                        updateExportSettings({ 
+                          keepPartHeadings: e.target.checked,
+                          removePartHeadings: !e.target.checked
+                        });
+                      }} 
+                      className="mt-0.5 rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" 
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Include Part Headings</span>
+                      <span className="text-[10px] text-slate-500 mt-0.5">Keep headings like "Part X: Title" in the final document.</span>
+                    </div>
                   </label>
-                  <label className="flex items-center gap-3">
-                    <input type="checkbox" checked={exportSettings.keepAvatarMarkers} onChange={e => updateExportSettings({ keepAvatarMarkers: e.target.checked })} className="rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500" />
-                    <span className="text-sm font-semibold text-slate-700">Keep avatar markers</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <input type="checkbox" checked={exportSettings.removeAvatarMarkersButKeepText} onChange={e => updateExportSettings({ removeAvatarMarkersButKeepText: e.target.checked })} className="rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500" />
-                    <span className="text-sm font-semibold text-slate-700">Remove avatar markers but keep text</span>
-                  </label>
-                  <label className="flex items-center gap-3">
-                    <input type="checkbox" checked={exportSettings.removeAvatarTextCompletely} onChange={e => updateExportSettings({ removeAvatarTextCompletely: e.target.checked })} className="rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500" />
-                    <span className="text-sm font-semibold text-slate-700">Remove avatar text completely</span>
-                  </label>
-               </div>
+
+                  <div className="border-t border-slate-150 my-2 pt-3">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Avatar Commentary Options</span>
+                    <div className="flex flex-col gap-3">
+                      <label className="flex items-start gap-3 cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          checked={exportSettings.keepAvatarMarkers} 
+                          onChange={e => {
+                            if (e.target.checked) {
+                              updateExportSettings({ 
+                                keepAvatarMarkers: true,
+                                removeAvatarMarkersButKeepText: false,
+                                removeAvatarTextCompletely: false
+                              });
+                            }
+                          }} 
+                          className="mt-0.5 rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" 
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Keep Avatar Markers</span>
+                          <span className="text-[10px] text-slate-500 mt-0.5">Keep commentary lines fully styled, e.g., "[AVATAR] commentary message"</span>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-3 cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          checked={exportSettings.removeAvatarMarkersButKeepText} 
+                          onChange={e => {
+                            if (e.target.checked) {
+                              updateExportSettings({ 
+                                keepAvatarMarkers: false,
+                                removeAvatarMarkersButKeepText: true,
+                                removeAvatarTextCompletely: false
+                              });
+                            }
+                          }} 
+                          className="mt-0.5 rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" 
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Remove Markers, Keep Text</span>
+                          <span className="text-[10px] text-slate-500 mt-0.5">Remove "[AVATAR]" prefix but keep the commentary prose text in.</span>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-3 cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          checked={exportSettings.removeAvatarTextCompletely} 
+                          onChange={e => {
+                            if (e.target.checked) {
+                              updateExportSettings({ 
+                                keepAvatarMarkers: false,
+                                removeAvatarMarkersButKeepText: false,
+                                removeAvatarTextCompletely: true
+                              });
+                            }
+                          }} 
+                          className="mt-0.5 rounded-sm border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" 
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Remove Avatar Comments Completely</span>
+                          <span className="text-[10px] text-slate-500 mt-0.5">Discard all bracketed commentary blocks, exporting prose script only.</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white border border-slate-200 p-4 rounded text-slate-650">
+                <p className="text-[11px] font-bold text-slate-800 mb-2 uppercase tracking-wide">Clean exports run auto-filters for:</p>
+                <ul className="list-disc pl-4 text-[10px] text-slate-500 flex flex-col gap-1.5 leading-normal">
+                  <li><span className="font-semibold text-slate-700">QA Reports & planning templates</span></li>
+                  <li><span className="font-semibold text-slate-700">Internal debug or status logs</span></li>
+                  <li><span className="font-semibold text-slate-700">Excess generation fragments</span> (e.g., "[идет генерация]")</li>
+                  <li><span className="font-semibold text-slate-700">Decorative separators</span> (e.g., "=== PART ONE ===" or "---")</li>
+                </ul>
+              </div>
+
+              <button 
+                onClick={handleDownload}
+                className="w-full py-3 bg-slate-900 hover:bg-slate-850 active:bg-black text-white rounded font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm shrink-0 cursor-pointer"
+              >
+                <Download className="w-4 h-4" /> Save Clean Script (.txt)
+              </button>
             </div>
-            
-            <div className="text-slate-500 text-xs bg-slate-50 p-4 border border-slate-200">
-               <p className="font-bold mb-2">Clean export automatically removes:</p>
-               <ul className="list-disc pl-4 grid grid-cols-2 gap-1.5 gap-x-8">
-                 <li>QA & Planning Notes</li>
-                 <li>Technical Residue</li>
-                 <li>Unfinished fragments</li>
-                 <li>Decorative separators</li>
-                 <li>Debug texts</li>
-               </ul>
+
+            {/* Right Column: Live Clean Script Preview */}
+            <div className="lg:col-span-3 flex flex-col border border-slate-200 bg-white rounded shadow-sm overflow-hidden h-full min-h-0">
+              <div className="bg-slate-50 px-4 py-2 border-b border-slate-150 flex justify-between items-center shrink-0">
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Live Clean Preview</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-mono text-slate-500 font-bold bg-slate-100 px-2 py-0.5 rounded">
+                    {cleanedScriptText.length} chars | {cleanedScriptText.split(/\s+/).filter(Boolean).length} words
+                  </span>
+                  <button
+                    onClick={handleCopyToClipboard}
+                    className="text-[10px] font-bold uppercase tracking-wider text-blue-600 hover:text-blue-500 cursor-pointer"
+                  >
+                    {copied ? '✅ Copied!' : '📋 Copy All'}
+                  </button>
+                </div>
+              </div>
+              <textarea
+                readOnly
+                className="flex-1 w-full h-full p-6 text-[13px] text-slate-700 leading-relaxed font-sans bg-slate-50/50 resize-none focus:outline-none overflow-y-auto"
+                value={cleanedScriptText || "Awaiting story contents..."}
+                placeholder="The compiled clean script will appear here as you write parts..."
+              />
             </div>
           </div>
         ) : isScriptStage && activeTab === 'parts' ? (
