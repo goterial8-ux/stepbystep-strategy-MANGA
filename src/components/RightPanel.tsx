@@ -166,7 +166,7 @@ export function RightPanel({
       </div>
 
       {/* Editor Area */}
-      <div className="flex-1 overflow-hidden flex flex-col px-6 pb-6">
+      <div className="flex-1 min-h-0 overflow-hidden flex flex-col px-6 pb-6">
         {isExportStage ? (
           <div className="max-w-2xl mx-auto w-full flex flex-col gap-6 mt-4">
             <div className="bg-white border border-slate-200 p-8 shadow-sm">

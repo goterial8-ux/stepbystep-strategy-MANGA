@@ -367,7 +367,7 @@ export default function App() {
     
     // Crop story plan to exclude everything from Section 13 / HIDDEN CARD TIMING MAP onwards
     let planText = currentState.storyPlan || '';
-    const cutOffRegex = /(?:Thirteen\.|13\.|Тринадцать\.|Тринадцатая\.|Thirteen\s+HIDDEN|13\s+HIDDEN|HIDDEN\s+CARD|ESCALATION\s+MAP)/i;
+    const cutOffRegex = /(?:\r?\n|^)\s*(?:Thirteen|13|Тринадцать|Тринадцатая)\s*[:.-—\s]\s*(?:HIDDEN\s+CARD|RESOURCE|ESCALATION|TIMING)/i;
     const cutOffMatch = planText.match(cutOffRegex);
     if (cutOffMatch && cutOffMatch.index !== undefined) {
       planText = planText.substring(0, cutOffMatch.index);
@@ -381,11 +381,9 @@ export default function App() {
       'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, 'v': 5, 'vi': 6, 'vii': 7, 'viii': 8, 'ix': 9, 'x': 10
     };
 
-    // Support lines like:
-    // "PART ONE — TITLE"
-    // "Part 1: Title"
-    // "Часть первая. Название"
-    const partListRegex = /(?:^|\n)\s*(?:Part|Часть|Stage|Этап)\s*(one|two|three|four|five|six|seven|eight|nine|ten|один|два|три|четыре|пять|шесть|семь|восемь|девять|десять|первая|вторая|третья|четвертая|пятая|шестая|седьмая|восьмая|девятая|десятая|i|ii|iii|iv|v|vi|vii|viii|ix|x|\d+)\s*[:.-—\s]\s*([^\n]+)/gi;
+    // Robust line matcher supporting optional list prefixes
+    // Captures group 1 (part number/word) and group 2 (title)
+    const partListRegex = /(?:^|\n)[^\n]*(?:Part|Часть)\s*(one|two|three|four|five|six|seven|eight|nine|ten|один|два|три|четыре|пять|шесть|семь|восемь|девять|десять|первая|вторая|третья|четвертая|пятая|шестая|седьмая|восьмая|девятая|десятая|i|ii|iii|iv|v|vi|vii|viii|ix|x|\d+)\s*[:.-—]\s*([^\n]+)/gi;
     let match;
     const matches: { number: number, title: string }[] = [];
     const seenNumbers = new Set<number>();
