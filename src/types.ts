@@ -281,6 +281,7 @@ Analyze the output against the stage goal, global rules, and locked story contra
 
 You must check:
 * Does this output follow the approved previous handoff?
+* Does the output preserve and execute all key elements, constraints, and plot points originally specified by the user in the "Raw Idea"? If any specific detail, character setup, or setting rule requested by the user is missing or ignored, flag as needs_repair and instruct the writer to integrate those missing elements.
 * Did the story drift from the core genre (survival/strategy/escape manga recap)?
 * Did character roles change?
 * Did protagonist power source change?
