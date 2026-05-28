@@ -186,9 +186,23 @@ async function handleGenerate(req: express.Request, res: express.Response) {
       parsed: parsedResult,
     });
   } catch (error: any) {
+    let errMsg = "Generation failed";
+    if (error) {
+      if (typeof error.message === 'string') {
+        errMsg = error.message;
+      } else if (typeof error === 'object') {
+        try {
+          errMsg = JSON.stringify(error);
+        } catch {
+          errMsg = String(error);
+        }
+      } else {
+        errMsg = String(error);
+      }
+    }
     return res.status(500).json({
       success: false,
-      error: error.message || "Generation failed"
+      error: errMsg
     });
   }
 }

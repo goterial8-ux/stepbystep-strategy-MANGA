@@ -86,11 +86,13 @@ export default function App() {
         }
 
         if (!response.ok) {
-          throw new Error(parsed.error || `HTTP ${response.status} Error`);
+          const errMsg = typeof parsed.error === 'object' ? JSON.stringify(parsed.error) : (parsed.error || `HTTP ${response.status} Error`);
+          throw new Error(errMsg);
         }
 
         if (parsed.success === false) {
-          throw new Error(parsed.error || 'Generation failed');
+          const errMsg = typeof parsed.error === 'object' ? JSON.stringify(parsed.error) : (parsed.error || 'Generation failed');
+          throw new Error(errMsg);
         }
 
         // Success!
@@ -113,11 +115,20 @@ export default function App() {
         }
 
         // Show a temporary visual message of retrying
-        setWarningMessage(`Attempt ${attempt} of ${maxAttempts} timed out or failed. Retrying...`);
-        setTimeout(() => setWarningMessage(null), 3500);
+        const errorMessage = String(err.message || err);
+        let waitTime = 2000;
+        
+        if (errorMessage.includes('429') || errorMessage.includes('RESOURCE_EXHAUSTED')) {
+          waitTime = Math.min(5000 * Math.pow(2, attempt - 1), 60000);
+          setWarningMessage(`Rate limit hit. Retrying in ${waitTime/1000}s... (Attempt ${attempt} of ${maxAttempts})`);
+        } else {
+          setWarningMessage(`Attempt ${attempt} of ${maxAttempts} timed out or failed. Retrying...`);
+        }
+        
+        setTimeout(() => setWarningMessage(null), waitTime > 500 ? waitTime - 500 : 3500);
 
-        // Wait with a small dynamic backoff before retrying
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        // Wait with a dynamic backoff before retrying
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }
     setGenerationAttempt(0);
