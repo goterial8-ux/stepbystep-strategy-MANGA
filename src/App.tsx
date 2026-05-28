@@ -58,7 +58,7 @@ export default function App() {
     url: string,
     options: RequestInit,
     maxAttempts = 10,
-    timeoutMs = 60000
+    timeoutMs = 300000
   ): Promise<any> => {
     let attempt = 0;
     while (attempt < maxAttempts) {
