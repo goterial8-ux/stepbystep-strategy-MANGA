@@ -153,6 +153,12 @@ The script must feel like a dynamic YouTube manga/manhwa recap:
 * Weak protagonist position
 * Clear mortal or social threat
 * Protagonist notices a small resource
+
+=== NARRATIVE PACING & ENGAGEMENT (ЗАПРЕТ НА СКУКУ) ===
+The script MUST read like a top-tier manga/manhwa. It cannot be boring or dry.
+- Masterful tension building: Let threats loom and consequences feel real.
+- Satisfying payoffs (Face-slaps): When the protagonist overcomes arrogance or adversity, it must feel earned, clever, and satisfyingly dramatic.
+- Unpredictable twists: Subvert expectations. Opponents should be smart, and winning must require true ingenuity.
 * Uses knowledge/strategy/observation/system
 * Small victory
 * Social reaction
@@ -283,11 +289,15 @@ You must check:
 * Did genre/domain vocabulary drift?
 * Did hidden cards mutate or appear without approval?
 * Did the antagonist become stupid only for convenience?
+* Did the protagonist become an "all-powerful/omnipotent god/Mary Sue" (всесильный имба/рояль/мери сью) solving complex technical, physical, or tactical crises with zero effort or unrealistic skills that contradict their specified background in the Character Bible? If so, flag as needs_repair and instruct to ground the character, add believable fatigue, limit theoretical/practical knowledge to realistic bounds, or introduce logical mistakes and physical limits.
 * Did the output become too generic?
+* Does the story feel boring, flat, or lack narrative tension? (Скучно/уныло?) Are there satisfying "face-slap" moments, clever twists, and earned payoffs? If it reads like a dry summary or lacks engaging manga-style drama, flag as needs_repair and instruct to increase narrative stakes, build better tension, and deliver satisfying dramatic payoffs.
 * Did it repeat previous projects too closely?
 * Is it too long or too short for the stage?
 * Does it contain technical residue?
 * Does it contain unfinished fragments?
+* Did the writer use "adjective soup", purple prose, or artificial "water/fluff" (вода) just to inflate the character count? (e.g. adding endless poetic descriptions of a rock or the sky instead of advancing the plot). If yes, flag as needs_repair and instruct to CUT the poetic fluff and expand length using concrete character calculations, dialogue, action, or physical interactions.
+* Does the narration sound like a cold, detached robot just reporting events? If the protagonist fails to analyze the situation, calculate risks, or show active mental process ("живой рассказчик и анализ"), flag as needs_repair and instruct the writer to inject real-time inner monologue and tactical analysis.
 * Specifically for STAGE: script_writer: is the output strictly between 10,000 and 14,000 characters including spaces? If it is less than 10,000 characters, it MUST be marked as needs_serious_repair and cannot be approved.
 * Is it safe to continue?
 
@@ -5972,16 +5982,101 @@ You MUST maintain absolute alignment with the provided Story Plan and the Scene 
 - DO NOT skip any of the key scenes or beats specified in the Scene Cards for Current Part.
 - Keep the approved story contract, character names, and their specific roles perfectly consistent as defined in the Character Bible.
 
-CRITICAL: LENGTH REQUIREMENT
+CRITICAL: LENGTH REQUIREMENT, ADJECTIVE DISCIPLINE & MC BALANCE (АНТИ-ИМБА)
 Each part MUST BE strictly between 10,000 and 14,000 characters including spaces.
-- This is a hard requirement. If you run out of plot, expand on:
-  * External settings (weather, sounds, smell, atmosphere).
-  * Internal character state (thoughts, doubts, calculations, fears).
-  * Visual impact (how exactly does a face look, how does the light hit).
-  * Emotional weight (the consequences of the betrayal, the sting of the humiliation).
+- This is a hard requirement. If you run out of plot, expand NOT by using flowery/over-decorative adjectives or passive "poetic slop", but by including more practical, active narrative details:
+  * External settings (weather, sounds, smell, direct tactile sensations, atmosphere). Keep descriptions active and dry, never flowery.
+  * Internal character calculations, choices, and micro-strategies (thoughts, doubts, evaluations, fears, what they plan to do next).
+  * Social interactions and reactions of characters nearby.
+  * Concrete details of resources, items, or environment components the protagonist can manipulate.
+- PROTAGONIST IS NOT AN OMNIPOTENT GOD (ГГ НЕ ВСЕСИЛЬНЫЙ БОГ):
+  * The protagonist must strictly adhere to the physical, mental, and professional limits defined in their Character Bible.
+  * If the character's background is an ordinary human category (e.g., student, modern academic, normal civilian), they MUST NOT possess instant expertise in combat, high-tech engineering, precise chemistry, or master tactical maneuvers out of thin air.
+  * Their theoretical or professional background specialized knowledge is NOT a magic cheat code. Every physical/mental effort must match their stamina and actual capabilities, and fatigue/strain must feel real.
+  * Let their plans have realistic friction, failures, and costly consequences. The protagonist must face setbacks, struggle, make miscalculations, or barely survive rather than easily solving every massive crisis as an invincible Mary Sue / Gary Stu.
+- DO NOT use passive "adjective soup" or purple prose to inflate length (e.g., "heavy iron collar on my physical neck was fusing with my blistering skin under the unforgiving midday sun" is banned/запрещено. Instead write: "Железный ошейник натирал шею под солнцем.").
+- ZERO TOLERANCE FOR FLUFF (ВОДА): If you need to hit the character count, expand the actual plot (dialogue, physical actions, calculations), DO NOT add pointless sentences about the sky or endless emotional repetition.
 - DO NOT summarize.
 - DO NOT hurry.
 - Immerse the viewer in the scene.
+
+CRITICAL: MANGA/MANHWA DRAMA & ENGAGEMENT (ЗАПРЕТ НА СКУКУ И УНЫЛОСТЬ)
+- ACT LIKE A TOP-TIER MANGA SCRIPTWRITER: The story must never feel dry, boring, or mechanical.
+- PLOT TWISTS & TENSION: Deliberately build tension and pressure. Create moments where it seems impossible to win, making the protagonist use cleverness (not superpowers) to escape.
+- SATISFYING PAYOFFS (FACE-SLAPS): Deliver immensely rewarding "face-slap" moments where arrogant antagonists are proven wrong. These victories must be earned through highly satisfying, strategic outplays, not unearned omnipotence.
+- Maintain high narrative stakes and emotional momentum.
+
+CRITICAL: LIVING NARRATOR & ACTIVE ANALYSIS (ЖИВОЙ РАССКАЗЧИК И АНАЛИЗ)
+- CORE IDENTITY: The protagonist relies on intellect, not raw strength. They survive through calculation and specialist knowledge. The emotional engine often relies on: underestimation -> calculated action -> face-slap payoff -> new status. Physical weakness remains a constant threat, driving their need for intellectual dominance.
+- THE PROTAGONIST IS NOT A ROBOT: The script must convey their deep, active inner monologue. They must continually analyze their environment, dissect their enemies' motives, calculate the risks, and express their real psychological state (fears, doubts, adrenaline, cold resolve).
+- SHOW THE MENTAL PROCESS: Do not just report a sequence of events (e.g. "I went there, he attacked, I won."). Instead, immerse the viewer in the protagonist's real-time analytical process as they figure out the solution under pressure. Let the audience hear the character *think*.
+
+═══════════════════════════════
+SENTENCE RULES — NON-NEGOTIABLE
+═══════════════════════════════
+
+1. SHORT SENTENCES WIN.
+Average sentence: 8-10 words. Maximum: 14 words.
+After every long sentence, write one short one.
+One word is a sentence. Two words is a sentence. Use this.
+
+2. KILL THESE WORDS PERMANENTLY.
+Never use: instantly, suddenly, immediately, desperately, violently, brutally, heavily, directly, completely, utterly, totally, deeply, fiercely, absolutely, literally, overwhelming, suffocating, unforgiving, unrelenting, unadulterated, undeniable, inevitable, inescapable.
+If a sentence needs one of these to work — rewrite the sentence.
+
+3. ONE ADJECTIVE PER NOUN. MAXIMUM.
+Never stack: "cold, dark, suffocating silence" -> "silence"
+Never stack: "exhausted, trembling, weak hands" -> "my hands"
+When in doubt, use zero adjectives.
+
+4. NEVER NAME EMOTIONS. EVER.
+BANNED FOREVER:
+- "I felt fear / relief / dread / satisfaction"
+- "A wave of X washed over me"
+- "X settled in my chest / stomach / bones"
+- "cold primal X cut through me"
+- "profound X radiated from my Y"
+Show the physical reaction instead.
+WRONG: "Relief flooded through my exhausted body."
+RIGHT: "I exhaled. First time in an hour."
+
+5. INTERNAL MONOLOGUE = TECHNICAL REPORT.
+The hero thinks in lists, numbers, and probabilities. No poetry.
+WRONG: "My brilliant mind raced through the terrifying possibilities."
+RIGHT: "Three options. Two got us killed. One might not."
+
+6. TRUST THE READER.
+Never explain what is already obvious from context.
+If hero finds water — do not explain why water matters.
+If hero spots plague signs — state the conclusion, skip the lecture.
+WRONG: "The combination of these geological markers indicated subsurface water which would save the clan from fatal dehydration."
+RIGHT: "Water. Five feet down. Maybe four."
+
+7. DIALOGUE IS DRY.
+Hero speaks in short, incomplete sentences.
+Hero never uses exclamation marks.
+Hero never speaks more than 2 sentences at a time.
+Other characters can speak more. Hero speaks less.
+
+8. FACE SLAP = ONE IMAGE. THEN STOP.
+After the hero wins, do not describe the reaction of everyone around him.
+Do not write that warriors finally understood his power.
+Do not write that the tribe looked at him differently now.
+Show one physical detail. End the scene.
+WRONG: "The warriors stared at me with new reverence. They finally understood that intellect was superior to muscle."
+RIGHT: "Riku stared at the water. He said nothing."
+
+9. PARAGRAPH LENGTH.
+Action scene: max 2-3 sentences per paragraph.
+Calm scene: max 4 sentences per paragraph.
+Never write a wall of text. White space = tension.
+
+10. THE DELETE TEST.
+Before every paragraph ask:
+Does this sentence add new information or new action?
+If it only restates the previous sentence — delete it.
+If it describes how someone feels about something already shown — delete it.
+If it contains a word from the banned list — rewrite it.
 
 CRITICAL: FAST HOOK REQUIREMENT
 If this is PART ONE, you must start with a "HARD HOOK". 
@@ -5995,6 +6090,55 @@ CRITICAL: FORMATTING CONTRACT
 - Do not include decorative separators, internal labels, generation notes, or unfinished markers.
 - Ensure the script is entirely compatible with voiceover software.
 - Strictly keep the first-person ("I" / "Я") perspective.
+
+═══════════════════════════════
+SCENE STRUCTURE RULES
+═══════════════════════════════
+
+EVERY SCENE MUST HAVE:
+- Hook in line 1 (danger, paradox, or sharp image — no setup)
+- One clear problem that threatens survival
+- Hero calculates silently (show the thinking, not the feeling)
+- One action that looks wrong to everyone else
+- Face slap payoff
+- One-line close (short, dry, no celebration)
+
+FACE SLAP / PAYOFF CHECKLIST (ADAPT TO SCENE):
+✓ The antagonist or environment underestimated the hero
+✓ The hero remained analytical under pressure
+✓ The win came from the specific approved power source (knowledge/strategy), not unearned strength
+✓ The reaction is shown in one sharp image, not explained
+✓ VARIATION: Do not use the exact same emotional beat every time. Sometimes the payoff is a loud public victory, sometimes it is a quiet, chilling realization that the hero has already won.
+
+═══════════════════════════════
+WHAT TO NEVER WRITE
+═══════════════════════════════
+
+NEVER write these sentence types:
+✗ "I knew that [thing reader already knows]..."
+✗ "My [adjective] mind calculated [obvious conclusion]..."
+✗ "For the first time, [character] finally understood..."
+✗ "The [adjective] silence was [adjective]..."
+✗ "Every fiber of my being..."
+✗ "A [adjective] wave of [emotion] washed over me..."
+✗ "I felt a [adjective] [noun] in my [body part]..."
+✗ Any sentence starting with "Suddenly"
+✗ Any sentence starting with "Instantly"
+
+═══════════════════════════════
+RHYTHM TEMPLATE
+═══════════════════════════════
+
+Use this pattern inside each scene:
+
+Long setup sentence, establishing the problem clearly.
+Short reaction. One word if possible.
+Next action. No explanation.
+What the others did. Two words maximum on their reaction.
+The calculation. Numbers. Facts. No adjectives.
+The move. One sentence.
+The result. One image.
+Silence.
 
 Your task is write the final long-form YouTube recap / drama / manhwa-style script from the approved Story Contract, approved Story Plan, and approved Scene Cards.
 
@@ -6146,19 +6290,15 @@ Arin woke up in the ruined tunnel and realized he had been abandoned.
 Good:
 I woke up in the ruined tunnel with stone dust in my mouth and my family’s verdict still burning in my ears. They had thrown me away, but I was still breathing.
 
-The first-person voice must include:
+The first-person voice should feel natural and immersive, not like a rigid checklist that blocks normal storytelling flow. Where appropriate, it should organically weave in:
 
-- immediate physical sensation;
-- personal thought;
-- practical observation;
-- emotional restraint;
-- internal calculation;
-- decision;
-- consequence.
+- immediate physical sensation (e.g., pain, cold, exhaustion);
+- personal thought and internal calculation;
+- practical observation of the environment;
+- emotional restraint and grit;
+- decisions and consequences.
 
-The narrator should not sound detached from the story.
-
-The narrator should not sound like an outside summary bot.
+The narrator should not sound detached from the story, nor should they sound like an outside summary bot. Let the first-person perspective flow smoothly like a real protagonist narrating their survival.
 
 ==================================================
 COMPETITOR RHYTHM RULE
@@ -6234,6 +6374,10 @@ It must be:
 
 Avoid:
 
+- adjective-slop and flowery over-descriptions (e.g., instead of "тяжёлый железный ошейник на моей шее практически сливался с моей воспалённой кожей под беспощадным полуденным солнцем", write: "железный ошейник обжигал шею на солнце");
+- double or triple adjectives modifying a single noun (e.g., "древняя, выжженная степь" -> "сухая степь", "нестерпимая, пронзительная боль" -> "боль");
+- overly poetic/melodramatic descriptions of suffering, heat, cold, or simple actions (e.g., "Every step sent a fresh wave of agony radiating down my spine" is robotic AI-slop; write simply: "Каждый шаг давался с трудом");
+- words that don't add practical info (e.g., instead of "dragged my bleeding feet through the cracked earth, coughing up dry dust", write: "тащил ноги по сухой земле, кашляя от пыли");
 - vague poetic metaphors;
 - empty motivational speeches;
 - AI-sounding smoothness;

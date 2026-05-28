@@ -17,11 +17,14 @@ export default function App() {
           parsed.promptRegistry = INITIAL_STATE.promptRegistry;
         } else {
           // Force upgrade core rules if missing new genre anchors
-          if (!parsed.promptRegistry.globalRulesPrompt.includes('GENRE ANCHOR')) {
+          if (!parsed.promptRegistry.globalRulesPrompt.includes('ЗАПРЕТ НА СКУКУ')) {
             parsed.promptRegistry.globalRulesPrompt = INITIAL_STATE.promptRegistry.globalRulesPrompt;
           }
-          if (!parsed.promptRegistry.aiSupervisorPrompt.includes('GENRE DRIFT FIX FORMAT')) {
+          if (!parsed.promptRegistry.aiSupervisorPrompt.includes('GENRE DRIFT FIX FORMAT') || !parsed.promptRegistry.aiSupervisorPrompt.includes('всесильный') || !parsed.promptRegistry.aiSupervisorPrompt.includes('Скучно/уныло?') || !parsed.promptRegistry.aiSupervisorPrompt.includes('adjective soup') || !parsed.promptRegistry.aiSupervisorPrompt.includes('detached robot')) {
             parsed.promptRegistry.aiSupervisorPrompt = INITIAL_STATE.promptRegistry.aiSupervisorPrompt;
+          }
+          if (!parsed.promptRegistry.stageFiveScriptWriterPrompt || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('ADJECTIVE DISCIPLINE') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('АНТИ-ИМБА') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('ЗАПРЕТ НА СКУКУ И УНЫЛОСТЬ') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('ZERO TOLERANCE FOR FLUFF') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('ЖИВОЙ РАССКАЗЧИК') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('SENTENCE RULES — NON-NEGOTIABLE') || !parsed.promptRegistry.stageFiveScriptWriterPrompt.includes('FACE SLAP / PAYOFF CHECKLIST (ADAPT TO SCENE)')) {
+            parsed.promptRegistry.stageFiveScriptWriterPrompt = INITIAL_STATE.promptRegistry.stageFiveScriptWriterPrompt;
           }
         }
         return parsed;
@@ -48,6 +51,78 @@ export default function App() {
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
   const [showDebug, setShowDebug] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'idle'>('idle');
+  const [generationAttempt, setGenerationAttempt] = useState<number>(0);
+  const [generationMaxAttempts] = useState<number>(10);
+
+  const fetchWithRetry = async (
+    url: string,
+    options: RequestInit,
+    maxAttempts = 10,
+    timeoutMs = 60000
+  ): Promise<any> => {
+    let attempt = 0;
+    while (attempt < maxAttempts) {
+      attempt++;
+      setGenerationAttempt(attempt);
+      console.log(`Fetch attempt ${attempt} of ${maxAttempts} for ${url}`);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        const raw = await response.text();
+        let parsed;
+        try {
+          parsed = JSON.parse(raw);
+        } catch {
+          console.error("Backend non-JSON response on attempt", attempt, raw);
+          throw new Error("Backend returned non-JSON response. Intermediary service timeout. Retrying...");
+        }
+
+        if (!response.ok) {
+          throw new Error(parsed.error || `HTTP ${response.status} Error`);
+        }
+
+        if (parsed.success === false) {
+          throw new Error(parsed.error || 'Generation failed');
+        }
+
+        // Success!
+        setGenerationAttempt(0);
+        return parsed;
+
+      } catch (err: any) {
+        clearTimeout(timeoutId);
+        console.warn(`Attempt ${attempt} failed:`, err);
+
+        // If batch or user stopped, abort
+        if (stopRequestedRef.current) {
+          setGenerationAttempt(0);
+          throw new Error("Generation stopped by user.");
+        }
+
+        if (attempt >= maxAttempts) {
+          setGenerationAttempt(0);
+          throw err;
+        }
+
+        // Show a temporary visual message of retrying
+        setWarningMessage(`Attempt ${attempt} of ${maxAttempts} timed out or failed. Retrying...`);
+        setTimeout(() => setWarningMessage(null), 3500);
+
+        // Wait with a small dynamic backoff before retrying
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    }
+    setGenerationAttempt(0);
+    throw new Error("Maximum generation attempts reached.");
+  };
 
   useEffect(() => {
     setSaveStatus('saving');
@@ -147,24 +222,12 @@ export default function App() {
       const promptUsed = buildPrompt(currentStageId, state);
       
       setIsGenerating(true);
-      fetch('/api/generate', {
+      fetchWithRetry('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: promptUsed, type: 'text', stageId: currentStageId })
       })
-      .then(async response => {
-        const raw = await response.text();
-        try {
-          return JSON.parse(raw);
-        } catch {
-          console.error("Backend returned non-JSON:", raw);
-          throw new Error("Backend returned HTML/non-JSON. Check API route.");
-        }
-      })
       .then(data => {
-        if (!data.success) {
-          throw new Error(data.error || 'Generation failed');
-        }
         const textOutput = data.text;
         setStageContent(currentStageId, textOutput);
         updateStageStatus(currentStageId, 'generated');
@@ -234,25 +297,12 @@ export default function App() {
       const promptUsed = buildSupervisorPrompt(currentStageId, getStageContent(currentStageId), state);
       
       setIsGenerating(true);
-      fetch('/api/generate', {
+      fetchWithRetry('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: promptUsed, type: 'supervisor', stageId: currentStageId })
       })
-      .then(async response => {
-        const raw = await response.text();
-        try {
-          return JSON.parse(raw);
-        } catch {
-          console.error("Backend returned non-JSON:", raw);
-          throw new Error("Backend returned HTML/non-JSON. Check API route.");
-        }
-      })
       .then(data => {
-        if (!data.success) {
-          throw new Error(data.error || 'Supervisor analysis failed');
-        }
-        
         const report: SupervisorReport = data.parsed;
         
         const newHistoryEntry = {
@@ -295,24 +345,12 @@ export default function App() {
       const promptUsed = buildRepairPrompt(currentStageId, getStageContent(currentStageId), mockReport, state);
       
       setIsGenerating(true);
-      fetch('/api/generate', {
+      fetchWithRetry('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: promptUsed, type: 'text', stageId: currentStageId })
       })
-      .then(async response => {
-        const raw = await response.text();
-        try {
-          return JSON.parse(raw);
-        } catch {
-          console.error("Backend returned non-JSON:", raw);
-          throw new Error("Backend returned HTML/non-JSON. Check API route.");
-        }
-      })
       .then(data => {
-        if (!data.success) {
-          throw new Error(data.error || 'Repair failed');
-        }
         const textOutput = data.text;
         setStageContent(currentStageId, textOutput);
         
@@ -471,23 +509,11 @@ export default function App() {
       const promptUsed = buildPartPrompt(partNum, currentState);
       
       setIsGenerating(true);
-      const response = await fetch('/api/generate', {
+      const data = await fetchWithRetry('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: promptUsed, type: 'text', stageId: 'script_writer' })
       });
-
-      const raw = await response.text();
-      let data;
-      try {
-        data = JSON.parse(raw);
-      } catch {
-        throw new Error("Backend returned HTML/non-JSON. Check API route.");
-      }
-
-      if (!data.success) {
-        throw new Error(data.error || 'Part generation failed');
-      }
 
       const textOutput = data.text;
       
@@ -565,13 +591,11 @@ export default function App() {
       setIsGenerating(true);
       
       // Step 1: Supervisor Analysis
-      const analyzeResponse = await fetch('/api/generate', {
+      const analyzeData = await fetchWithRetry('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: promptUsed, type: 'json' })
       });
-      const analyzeData = await analyzeResponse.json();
-      if (!analyzeData.success) throw new Error(analyzeData.error || 'Check failed');
       const report = analyzeData.json as SupervisorReport;
       
       updateState({
@@ -589,13 +613,11 @@ export default function App() {
         
         // Auto-repair immediately if drift is detected or it needs repair
         const repairPrompt = buildRepairPrompt('script_writer', part.draftText, report, currentState);
-        const repairResponse = await fetch('/api/generate', {
+        const repairData = await fetchWithRetry('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: repairPrompt, type: 'text', stageId: 'script_writer' })
         });
-        const repairData = await repairResponse.json();
-        if (!repairData.success) throw new Error(repairData.error || 'Auto-repair failed');
         
         const newText = repairData.text;
         updateScriptPart(index, { 
@@ -639,6 +661,18 @@ export default function App() {
       {warningMessage && (
         <div className="bg-amber-100 text-amber-900 px-6 py-3 text-sm font-bold border-b border-amber-200">
           ⚠️ {warningMessage}
+        </div>
+      )}
+      
+      {generationAttempt > 0 && (
+        <div className="bg-sky-600 text-white px-6 py-3 text-sm font-semibold border-b border-sky-700 flex justify-between items-center animate-pulse shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="inline-block animate-spin mr-1">⏳</span>
+            <span>Nova is thinking... Attempt {generationAttempt} of {generationMaxAttempts}</span>
+          </div>
+          <span className="text-[10px] uppercase font-mono tracking-wider bg-sky-700 px-2 py-0.5 rounded font-black">
+            Vertex AI Retry Mode
+          </span>
         </div>
       )}
 
