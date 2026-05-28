@@ -299,6 +299,7 @@ You must check:
 * Does it contain unfinished fragments?
 * Did the writer use "adjective soup", purple prose, or artificial "water/fluff" (вода) just to inflate the character count? (e.g. adding endless poetic descriptions of a rock or the sky instead of advancing the plot). If yes, flag as needs_repair and instruct to CUT the poetic fluff and expand length using concrete character calculations, dialogue, action, or physical interactions.
 * Did the writer become "lazy" after removing the fluff? Did they rush the plot, skipping over details or outputting a thin, bullet-point-like summary instead of a fully fleshed-out story? If the pacing is rushed and lacks deep micro-actions/dialogue, flag as needs_repair and instruct to slow down time and expand the tactical steps.
+* Did the writer fall into the "TEXTBOOK TRAP" (Душниловка)? Are there long paragraphs of pure theory or calculation without immediate danger, ticking clocks, or external action? If the script feels like a dry lecture, flag as needs_repair and instruct the writer to intertwine the theory heavily with physical survival pressure and quick action consequences.
 * Does the narration sound like a cold, detached robot just reporting events? If the protagonist fails to analyze the situation, calculate risks, or show active mental process ("живой рассказчик и анализ"), flag as needs_repair and instruct the writer to inject real-time inner monologue and tactical analysis.
 * Specifically for STAGE: script_writer: is the output strictly between 10,000 and 14,000 characters including spaces? If it is less than 10,000 characters, it MUST be marked as needs_serious_repair and cannot be approved.
 * Is it safe to continue?
@@ -5992,6 +5993,13 @@ Since you cannot use adjectives, filler, or poetic slop, you must work harder to
 * ENVIRONMENTAL FRICTION: Introduce small, realistic obstacles that require immediate troubleshooting.
 If you just skip from scene to scene quickly, the script will fail. You must "think harder" and build dense, active scenes.
 
+CRITICAL: AVOID THE "TEXTBOOK" TRAP (ЗАПРЕТ НА ДУШНИЛОВКУ И ЛЕКЦИИ)
+Calculations without danger are incredibly boring. Do not turn the script into a dry instruction manual.
+- STAKES & PRESSURE: Never perform a long calculation in a safe, quiet environment. Add a ticking clock or immediate danger. The protagonist must be figuring things out while under direct threat (physical danger, social humiliation, running out of resources).
+- THE 50/50 RULE (MIND & ACTION): Balance internal monologue with external interaction. For every block of internal calculation, there MUST be an equal amount of dialogue, physical action, or environmental change. Do not put the protagonist in a corner to think for three paragraphs.
+- TEST THE THEORY INSTANTLY: Calculate -> Act -> React. Let them apply their knowledge in small, immediate steps that either work or fail, rather than summarizing a master plan.
+- HUMAN FACTOR: They are calculating to survive, not just to solve a math puzzle. Ground their intellect in physical reality (adrenaline, pain, exhaustion, relief).
+
 CRITICAL: LENGTH REQUIREMENT, ADJECTIVE DISCIPLINE & MC BALANCE (АНТИ-ИМБА)
 Each part MUST BE strictly between 10,000 and 14,000 characters including spaces.
 - This is a hard requirement. If you run out of plot, expand NOT by using flowery/over-decorative adjectives or passive "poetic slop", but by including more practical, active narrative details:
@@ -6011,6 +6019,9 @@ Each part MUST BE strictly between 10,000 and 14,000 characters including spaces
 - Immerse the viewer in the scene.
 
 CRITICAL: MANGA/MANHWA DRAMA & ENGAGEMENT (ЗАПРЕТ НА СКУКУ И УНЫЛОСТЬ)
+- COMPETITOR NARRATIVE STYLE (FIRST-PERSON GRITTY REALISM): The narrative MUST mimic top-tier survival/reincarnation scripts. Use SHORT, PUNCHY, DECLARATIVE sentences. Avoid long, winding complex grammar. Start scenes abruptly with action or a bold statement (e.g., "I died. Not dramatically." or "My name is Kenji...").
+- FAST-PACED MICRO-PROGRESSION: The protagonist should constantly face immediate, life-or-death challenges, solve them with their specific intellect or skill, immediately gain a tangible reward/resource, and immediately face the next escalated problem. The world should react dynamically to them.
+- RUTHLESS PRAGMATISM: The protagonist is not soft. They think in terms of survival, resources, math, and efficiency. They treat interactions as transactions and evaluate people around them analytically. Let the audience hear this cold, sharp internal monologue.
 - ACT LIKE A TOP-TIER MANGA SCRIPTWRITER: The story must never feel dry, boring, or mechanical.
 - PLOT TWISTS & TENSION: Deliberately build tension and pressure. Create moments where it seems impossible to win, making the protagonist use cleverness (not superpowers) to escape.
 - SATISFYING PAYOFFS (FACE-SLAPS): Deliver immensely rewarding "face-slap" moments where arrogant antagonists are proven wrong. These victories must be earned through highly satisfying, strategic outplays, not unearned omnipotence.
