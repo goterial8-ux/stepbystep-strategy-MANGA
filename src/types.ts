@@ -297,6 +297,7 @@ You must check:
 * Does it contain technical residue?
 * Does it contain unfinished fragments?
 * Did the writer use "adjective soup", purple prose, or artificial "water/fluff" (вода) just to inflate the character count? (e.g. adding endless poetic descriptions of a rock or the sky instead of advancing the plot). If yes, flag as needs_repair and instruct to CUT the poetic fluff and expand length using concrete character calculations, dialogue, action, or physical interactions.
+* Did the writer become "lazy" after removing the fluff? Did they rush the plot, skipping over details or outputting a thin, bullet-point-like summary instead of a fully fleshed-out story? If the pacing is rushed and lacks deep micro-actions/dialogue, flag as needs_repair and instruct to slow down time and expand the tactical steps.
 * Does the narration sound like a cold, detached robot just reporting events? If the protagonist fails to analyze the situation, calculate risks, or show active mental process ("живой рассказчик и анализ"), flag as needs_repair and instruct the writer to inject real-time inner monologue and tactical analysis.
 * Specifically for STAGE: script_writer: is the output strictly between 10,000 and 14,000 characters including spaces? If it is less than 10,000 characters, it MUST be marked as needs_serious_repair and cannot be approved.
 * Is it safe to continue?
@@ -5981,6 +5982,14 @@ You MUST maintain absolute alignment with the provided Story Plan and the Scene 
 - DO NOT invent new major events, characters, or conflicts that deviate from the Approved Story Plan.
 - DO NOT skip any of the key scenes or beats specified in the Scene Cards for Current Part.
 - Keep the approved story contract, character names, and their specific roles perfectly consistent as defined in the Character Bible.
+
+CRITICAL: HOW TO REACH 10,000+ CHARACTERS WITHOUT FLUFF (PREVENTING "LAZY" WRITING)
+Since you cannot use adjectives, filler, or poetic slop, you must work harder to expand the actual narrative depth. To reach the required length, DO NOT rush the plot. Instead, SLOW DOWN TIME within the scene:
+* MICRO-ACTIONS: Break down complex physical actions into step-by-step tactical moves. (e.g., Don't say "I fixed it." Say "I checked the valve. I cleared the rust. I tested the pressure. It held.")
+* DEEPEN THE CALCULATIONS: Expand the protagonist's internal monologue. Let the audience hear every option they consider, why options A and B fail, and why option C is the only choice.
+* EXPAND DIALOGUE & PUSHBACK: Make conversations longer and more resistant. Antagonists should argue back. Allies should doubt. The protagonist must convince them through facts.
+* ENVIRONMENTAL FRICTION: Introduce small, realistic obstacles that require immediate troubleshooting.
+If you just skip from scene to scene quickly, the script will fail. You must "think harder" and build dense, active scenes.
 
 CRITICAL: LENGTH REQUIREMENT, ADJECTIVE DISCIPLINE & MC BALANCE (АНТИ-ИМБА)
 Each part MUST BE strictly between 10,000 and 14,000 characters including spaces.
