@@ -17,7 +17,7 @@ export default function App() {
           parsed.promptRegistry = INITIAL_STATE.promptRegistry;
         } else {
           // Force upgrade core rules if missing new genre anchors
-          if (!parsed.promptRegistry.globalRulesPrompt.includes('ЗАПРЕТ НА СКУКУ')) {
+          if (!parsed.promptRegistry.globalRulesPrompt.includes('ЗАПРЕТ НА СКУКУ') || !parsed.promptRegistry.globalRulesPrompt.includes('УНИВЕРСАЛЬНОЕ ПРАВИЛО: ЖИВОЙ РАССКАЗЧИК ОТ ПЕРВОГО ЛИЦА')) {
             parsed.promptRegistry.globalRulesPrompt = INITIAL_STATE.promptRegistry.globalRulesPrompt;
           }
           if (!parsed.promptRegistry.aiSupervisorPrompt.includes('GENRE DRIFT FIX FORMAT') || !parsed.promptRegistry.aiSupervisorPrompt.includes('всесильный') || !parsed.promptRegistry.aiSupervisorPrompt.includes('Скучно/уныло?') || !parsed.promptRegistry.aiSupervisorPrompt.includes('adjective soup') || !parsed.promptRegistry.aiSupervisorPrompt.includes('detached robot') || !parsed.promptRegistry.aiSupervisorPrompt.includes('lazy') || !parsed.promptRegistry.aiSupervisorPrompt.includes('Raw Idea') || !parsed.promptRegistry.aiSupervisorPrompt.includes('TEXTBOOK TRAP')) {

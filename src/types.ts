@@ -167,6 +167,11 @@ The script MUST read like a top-tier manga/manhwa. It cannot be boring or dry.
 * Next upgrade
 * Final payoff via system/mechanism/plan, not random power.
 
+=== FIRST-PERSON LIVING NARRATOR (УНИВЕРСАЛЬНОЕ ПРАВИЛО: ЖИВОЙ РАССКАЗЧИК ОТ ПЕРВОГО ЛИЦА) ===
+- The entire story must be told from the FIRST-PERSON perspective ("I", "my", "we").
+- The actions must be described vividly, naturally, and organically as a living person experiencing them inside the story—NOT like a dry technical manual, a robot logging tasks, or a textbook. 
+- Embed thoughts, physical sensations, and emotions directly into the practical actions. The narrator is alive, reacting in real-time, performing actions fluidly rather than listing cold, mechanical steps or overly technical descriptions. Describe WHAT the character is doing and HOW they feel doing it.
+
 Main taste: weak start -> smart observation -> small resource -> practical use -> proof -> social reaction -> upgrade -> new pressure -> bigger payoff.
 
 GENRE CORRECTION RULE:

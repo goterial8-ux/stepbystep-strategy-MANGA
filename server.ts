@@ -123,10 +123,9 @@ async function generateContent(prompt: string, expectJson: boolean = false, stag
   let thinkingLevel: "HIGH" | "LOW" | "MINIMAL" | undefined = undefined;
 
   if (stageId === "raw_idea" || stageId === "story_dna") {
-    modelName = "gemini-3.5-flash";
+    modelName = "gemini-2.5-flash";
   } else if (stageId === "story_plan") {
-    modelName = "gemini-3.1-pro-preview";
-    thinkingLevel = "HIGH";
+    modelName = "gemini-2.5-pro";
   } else if (stageId === "scene_cards") {
     modelName = "gemini-2.5-pro";
   } else if (stageId === "script_writer") {
