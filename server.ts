@@ -119,7 +119,7 @@ async function generateContent(prompt: string, expectJson: boolean = false, stag
   }
 
   // Define model and config based on user's specific stage requirements
-  let modelName = "gemini-3.5-flash"; // Default
+  let modelName = "gemini-2.5-flash"; // Default
   let thinkingLevel: "HIGH" | "LOW" | "MINIMAL" | undefined = undefined;
 
   if (stageId === "raw_idea" || stageId === "story_dna") {
@@ -132,26 +132,52 @@ async function generateContent(prompt: string, expectJson: boolean = false, stag
     modelName = "gemini-3.1-pro-preview";
     thinkingLevel = "HIGH";
   } else if (stageId === "supervisor") {
-    modelName = "gemini-3.5-flash";
+    modelName = "gemini-2.5-flash";
+  }
+
+  let finalPrompt = prompt;
+  if (modelName === "gemini-2.5-flash") {
+    thinkingLevel = "HIGH";
+    // Inject mental instructions to emulate physical reasoning, strictness, and logical depth of Gemini 3.1 Pro
+    const brainDirective = `\n\n[EMULATION DIRECTIVE: Think, reason, and perform deep step-by-step analytical considerations before answering, mimicking the high-quality intellectual and logical depth of Gemini 3.1 Pro. Process all instructions rigorously. If JSON/schema formatting is required, think internally first but ensure the output is strictly valid conforming JSON.]\n`;
+    finalPrompt = brainDirective + prompt;
+  }
+
+  const config: any = {};
+  if (expectJson) {
+    config.responseMimeType = "application/json";
+  }
+  if (thinkingLevel) {
+    config.thinkingConfig = { thinkingLevel };
   }
 
   try {
     const modeDesc = thinkingLevel ? ` (Thinking: ${thinkingLevel})` : "";
     console.log(`[Vertex AI] Requesting ${modelName}${modeDesc} for stage: ${stageId || "default"}`);
     
-    const config: any = {};
-    if (expectJson) {
-      config.responseMimeType = "application/json";
+    let response;
+    try {
+      response = await ai.models.generateContent({
+        model: modelName,
+        contents: finalPrompt,
+        config: config
+      });
+    } catch (innerErr: any) {
+      const errStr = String(innerErr.message || innerErr);
+      if (thinkingLevel && (errStr.includes("thinkingConfig") || errStr.includes("thinking_config") || errStr.includes("not supported") || errStr.includes("INVALID_ARGUMENT") || errStr.includes("Unsupported"))) {
+        console.warn(`[Vertex AI Warning] ${modelName} with thinkingLevel ${thinkingLevel} is not supported or failed. Retrying without thinkingConfig...`);
+        const retryConfig = { ...config };
+        delete retryConfig.thinkingConfig;
+        
+        response = await ai.models.generateContent({
+          model: modelName,
+          contents: finalPrompt,
+          config: retryConfig
+        });
+      } else {
+        throw innerErr;
+      }
     }
-    if (thinkingLevel) {
-      config.thinkingConfig = { thinkingLevel };
-    }
-
-    const response = await ai.models.generateContent({
-      model: modelName,
-      contents: prompt,
-      config: config
-    });
 
     console.log(`[Vertex AI] Success with ${modelName} for ${stageId || "default"}`);
     return response.text || "";
