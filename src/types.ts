@@ -425,11 +425,11 @@ You must check:
 * Is it too long or too short for the stage?
 * Does it contain technical residue?
 * Does it contain unfinished fragments?
-* Did the writer use "adjective soup", purple prose, or artificial "water/fluff" (вода) just to inflate the character count? (e.g. adding endless poetic descriptions of a rock or the sky instead of advancing the plot). If yes, flag as needs_repair and instruct to CUT the poetic fluff and expand length using concrete character calculations, dialogue, action, or physical interactions.
+* Did the writer use "adjective soup", stacked adjectives (more than ONE adjective per noun), or named emotions (e.g., "heavy iron boots", "cold paralyzing fear")? The rules strictly enforce ONE adjective per noun maximum and zero named emotions. If violated, flag as needs_repair and instruct to REWRITE the sentences to remove stacked adjectives, show feelings through action, and expand length using concrete character logic instead of fluff.
 * Did the writer become "lazy" after removing the fluff? Did they rush the plot, skipping over details or outputting a thin, bullet-point-like summary instead of a fully fleshed-out story? If the pacing is rushed and lacks deep micro-actions/dialogue, flag as needs_repair and instruct to slow down time and expand the tactical steps.
 * Did the writer fall into the "TEXTBOOK TRAP" (Душниловка)? Are there long paragraphs of pure theory or calculation without immediate danger, ticking clocks, or external action? If the script feels like a dry lecture, flag as needs_repair and instruct the writer to intertwine the theory heavily with physical survival pressure and quick action consequences.
 * Does the narration sound like a cold, detached robot just reporting events? If the protagonist fails to analyze the situation, calculate risks, or show active mental process ("живой рассказчик и анализ"), flag as needs_repair and instruct the writer to inject real-time inner monologue and tactical analysis.
-* Specifically for STAGE: script_writer: is the output strictly between 10,000 and 14,000 characters including spaces? If it is less than 10,000 characters, it MUST be marked as needs_serious_repair and cannot be approved.
+* Specifically for STAGE: script_writer: is the output strictly between 10,000 and 14,000 characters (approximately 1,600 to 2,300 words) including spaces? If it is less than 10,000 characters or less than 1,600 words, it MUST be marked as needs_serious_repair and cannot be approved.
 * Is it safe to continue?
 
 === GENRE DRIFT FIX FORMAT ===
@@ -488,6 +488,10 @@ Genre:
 
 Output Language:
 {{OUTPUT_LANGUAGE}}
+
+CRITICAL LANGUAGE RULE:
+- You MUST generate your story, character thoughts, and all narrative text strictly in the Output Language ({{OUTPUT_LANGUAGE}}).
+- All structural limits, pacing, adjective rules ("ONE ADJECTIVE PER NOUN"), and "No Fluff" rules must be natively applied to this Output Language.
 
 Target Length:
 {{TARGET_LENGTH}}
@@ -1216,6 +1220,10 @@ Genre:
 
 Output Language:
 {{OUTPUT_LANGUAGE}}
+
+CRITICAL LANGUAGE RULE:
+- You MUST generate your story, character thoughts, and all narrative text strictly in the Output Language ({{OUTPUT_LANGUAGE}}).
+- All structural limits, pacing, adjective rules ("ONE ADJECTIVE PER NOUN"), and "No Fluff" rules must be natively applied to this Output Language.
 
 Target Length:
 {{TARGET_LENGTH}}
@@ -2529,6 +2537,10 @@ Genre:
 Output Language:
 {{OUTPUT_LANGUAGE}}
 
+CRITICAL LANGUAGE RULE:
+- You MUST generate your story, character thoughts, and all narrative text strictly in the Output Language ({{OUTPUT_LANGUAGE}}).
+- All structural limits, pacing, adjective rules ("ONE ADJECTIVE PER NOUN"), and "No Fluff" rules must be natively applied to this Output Language.
+
 Target Length:
 {{TARGET_LENGTH}}
 
@@ -3126,9 +3138,9 @@ These rules are mandatory for the final script.
 
 Normal narration and dialogue paragraphs:
 
-- Every non-avatar paragraph in the final script must be strictly between one hundred twenty and two hundred twenty characters including spaces.
-- No normal paragraph may be shorter than one hundred twenty characters.
-- No normal paragraph may be longer than two hundred twenty characters.
+- Every non-avatar paragraph in the final script must be strictly between ninety and two hundred characters including spaces.
+- No normal paragraph may be shorter than ninety characters.
+- No normal paragraph may be longer than two hundred characters.
 - If a sentence is too short, Stage Five must merge it naturally with nearby action, context, reaction, or emotional movement.
 - If a paragraph is too long, Stage Five must split it naturally without damaging rhythm.
 - This applies to narration and dialogue paragraphs unless the user explicitly changes the rule.
@@ -3175,7 +3187,7 @@ Script Writer enforcement:
 
 - Stage Five must actively enforce the paragraph character rule.
 - Stage Five must count or estimate paragraph length before approving a part.
-- Stage Five must not mark a script part complete if normal paragraphs violate the one hundred twenty to two hundred twenty character rule.
+- Stage Five must not mark a script part complete if normal paragraphs violate the ninety to two hundred character rule.
 - Stage Five must not mark a script part complete if avatar count or avatar length is invalid.
 
 AI Supervisor enforcement:
@@ -3553,7 +3565,7 @@ Why Escalation Is Logical:
 Nineteen. SCRIPT FORMATTING CONTRACT FOR STAGE FOUR AND STAGE FIVE
 
 Normal Paragraph Rule:
-Every non-avatar final script paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every non-avatar final script paragraph must be strictly between ninety and two hundred characters including spaces.
 
 Avatar Rule:
 If enabled, the final script must contain exactly three avatar commentary blocks total. Each avatar body must be around three hundred to four hundred characters excluding the [AVATAR] tag.
@@ -3694,7 +3706,7 @@ Avatar Commentary Plan:
 Enabled. Exactly three avatar commentary slots total.
 
 Final Script Paragraph Rule:
-Every non-avatar final script paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every non-avatar final script paragraph must be strictly between ninety and two hundred characters including spaces.
 
 Final Script Avatar Rule:
 Exactly three avatar blocks total. Each avatar body must be around three hundred to four hundred characters excluding the [AVATAR] tag.
@@ -4414,7 +4426,7 @@ Every practical success makes the settlement more visible, valuable, and threate
 Nineteen. SCRIPT FORMATTING CONTRACT FOR STAGE FOUR AND STAGE FIVE
 
 Normal Paragraph Rule:
-Every non-avatar final script paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every non-avatar final script paragraph must be strictly between ninety and two hundred characters including spaces.
 
 Avatar Rule:
 If enabled, the final script must contain exactly three avatar commentary blocks total. Each avatar body must be around three hundred to four hundred characters excluding the [AVATAR] tag.
@@ -4507,7 +4519,7 @@ Avatar slots:
 Exactly three: Part Four, Part Seven, Part Nine.
 
 Paragraph rules:
-Final script non-avatar paragraphs must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Final script non-avatar paragraphs must be strictly between ninety and two hundred characters including spaces.
 
 Avatar count and length rules:
 Exactly three avatar blocks. Each avatar body around three hundred to four hundred characters excluding the [AVATAR] tag.
@@ -4548,6 +4560,10 @@ Project Title:
 
 Output Language:
 {{OUTPUT_LANGUAGE}}
+
+CRITICAL LANGUAGE RULE:
+- You MUST generate your story, character thoughts, and all narrative text strictly in the Output Language ({{OUTPUT_LANGUAGE}}).
+- All structural limits, pacing, adjective rules ("ONE ADJECTIVE PER NOUN"), and "No Fluff" rules must be natively applied to this Output Language.
 
 Genre:
 {{GENRE}}
@@ -5093,7 +5109,7 @@ Stage Four must pass the Script Formatting Contract forward to Stage Five.
 The final script rules are:
 
 Normal paragraph rule:
-Every non-avatar final script paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every non-avatar final script paragraph must be strictly between ninety and two hundred characters including spaces.
 
 Avatar rule:
 If enabled, the final full script must contain exactly three avatar commentary blocks total.
@@ -5444,7 +5460,7 @@ Avatar Slot Summary:
 No avatar commentary in Part One. The first avatar is planned later, after the first practical public payoff.
 
 Formatting Contract Reminder:
-Every normal final script paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces. Avatar bodies must be around three hundred to four hundred characters if used.
+Every normal final script paragraph must be strictly between ninety and two hundred characters including spaces. Avatar bodies must be around three hundred to four hundred characters if used.
 
 Two. PART ONE — THE SON THEY THREW AWAY
 
@@ -6091,7 +6107,7 @@ Avatar placements:
 No avatar in Part One. Do not write any [AVATAR] block in this part.
 
 Paragraph length rule:
-Every non-avatar paragraph in the final script must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every non-avatar paragraph in the final script must be strictly between ninety and two hundred characters including spaces.
 
 Avatar count and length rule:
 Full script must contain exactly three avatar blocks if enabled. Each avatar body must be around three hundred to four hundred characters excluding the [AVATAR] tag.
@@ -6113,7 +6129,7 @@ You MUST maintain absolute alignment with the provided Story Plan and the Scene 
 - DO NOT skip any of the key scenes or beats specified in the Scene Cards for Current Part.
 - Keep the approved story contract, character names, and their specific roles perfectly consistent as defined in the Character Bible.
 
-CRITICAL: HOW TO REACH 10,000+ CHARACTERS WITHOUT FLUFF (PREVENTING "LAZY" WRITING)
+CRITICAL: HOW TO REACH 10,000+ CHARACTERS (1,600+ WORDS) WITHOUT FLUFF (PREVENTING "LAZY" WRITING)
 Since you cannot use adjectives, filler, or poetic slop, you must work harder to expand the actual narrative depth. To reach the required length, DO NOT rush the plot. Instead, SLOW DOWN TIME within the scene:
 * MICRO-ACTIONS: Break down complex physical actions into step-by-step tactical moves. (e.g., Don't say "I fixed it." Say "I checked the valve. I cleared the rust. I tested the pressure. It held.")
 * DEEPEN THE CALCULATIONS: Expand the protagonist's internal monologue. Let the audience hear every option they consider, why options A and B fail, and why option C is the only choice.
@@ -6129,7 +6145,7 @@ Calculations without danger are incredibly boring. Do not turn the script into a
 - HUMAN FACTOR: They are calculating to survive, not just to solve a math puzzle. Ground their intellect in physical reality (adrenaline, pain, exhaustion, relief).
 
 CRITICAL: LENGTH REQUIREMENT, ADJECTIVE DISCIPLINE & MC BALANCE (АНТИ-ИМБА)
-Each part MUST BE strictly between 10,000 and 14,000 characters including spaces.
+Each part MUST BE strictly between 10,000 and 14,000 characters (approximately 1,600 to 2,300 words) including spaces.
 - This is a hard requirement. If you run out of plot, expand NOT by using flowery/over-decorative adjectives or passive "poetic slop", but by including more practical, active narrative details:
   * External settings (weather, sounds, smell, direct tactile sensations, atmosphere). Keep descriptions active and dry, never flowery.
   * Internal character calculations, choices, and micro-strategies (thoughts, doubts, evaluations, fears, what they plan to do next).
@@ -6177,6 +6193,24 @@ If a sentence needs one of these to work — rewrite the sentence.
 Never stack: "cold, dark, suffocating silence" -> "silence"
 Never stack: "exhausted, trembling, weak hands" -> "my hands"
 When in doubt, use zero adjectives.
+
+EXAMPLES OF BAD VS GOOD WRITING:
+[RUSSIAN EXAMPLES]
+BAD: "Тяжелые кованые сапоги гвардейцев грохотали по железным решеткам прямо над моей головой." (4 adjectives/modifiers on nouns)
+GOOD: "Сапоги гвардии грохотали по решетам сверху. Я затаил дыхание."
+
+BAD: "Кроваво-красное свечение магического ядра пробивалось сквозь толстые стеклянные переборки."
+GOOD: "Свет ядра пробивался сквозь стекло. Город падал."
+
+[ENGLISH EXAMPLES]
+BAD: "The heavy, iron-forged boots of the royal guards thundered violently against the rusted metal grates directly above my trembling head."
+GOOD: "The guard's boots slammed against the grate above. I held my breath."
+
+BAD: "The blood-red, ominous glow of the magical core pierced through the thick, reinforced glass bulkheads."
+GOOD: "The core's light bled through the glass. The city was falling."
+
+BAD: "The stale air in the dark room reeked of stagnant, metallic rust and old, burnt machine oil."
+GOOD: "The air smelled of rust and oil."
 
 4. NEVER NAME EMOTIONS. EVER.
 BANNED FOREVER:
@@ -6308,6 +6342,10 @@ Project Title:
 
 Output Language:
 {{OUTPUT_LANGUAGE}}
+
+CRITICAL LANGUAGE RULE:
+- You MUST generate your story, character thoughts, and all narrative text strictly in the Output Language ({{OUTPUT_LANGUAGE}}).
+- All structural limits, pacing, adjective rules ("ONE ADJECTIVE PER NOUN"), and "No Fluff" rules must be natively applied to this Output Language.
 
 Genre:
 {{GENRE}}
@@ -6834,19 +6872,19 @@ I was very determined and knew I had to keep going because my future depended on
 PARAGRAPH LENGTH RULE
 ==================================================
 
-Every normal non-avatar paragraph must be strictly between one hundred twenty and two hundred twenty characters including spaces.
+Every normal non-avatar paragraph must be strictly between ninety and two hundred characters including spaces.
 
 This rule applies to narration and dialogue paragraphs.
 
-No normal paragraph may be shorter than one hundred twenty characters.
+No normal paragraph may be shorter than ninety characters.
 
-No normal paragraph may be longer than two hundred twenty characters.
+No normal paragraph may be longer than two hundred characters.
 
 If a sentence is too short, merge it naturally with action, reaction, sensory detail, or internal thought.
 
 If a paragraph is too long, split it naturally into two paragraphs that both obey the character range.
 
-Do not create one-line punch paragraphs shorter than one hundred twenty characters.
+Do not create one-line punch paragraphs shorter than ninety characters.
 
 Do not create huge paragraphs.
 
@@ -7115,7 +7153,7 @@ Before finalizing, silently check:
 - Did I preserve emotional engine?
 - Did I use competitor references only for rhythm?
 - Did I avoid copying competitor scenes?
-- Are all normal paragraphs between one hundred twenty and two hundred twenty characters?
+- Are all normal paragraphs between ninety and two hundred characters?
 - Did I write exactly the approved avatar blocks for this part?
 - Is avatar body length around three hundred to four hundred characters if used?
 - Are all numbers and symbols written as words?
