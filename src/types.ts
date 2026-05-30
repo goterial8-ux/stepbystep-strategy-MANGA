@@ -6185,14 +6185,25 @@ Average sentence: 8-10 words. Maximum: 14 words.
 After every long sentence, write one short one.
 One word is a sentence. Two words is a sentence. Use this.
 
-2. KILL THESE WORDS PERMANENTLY.
+2. KILL THESE WORDS PERMANENTLY (AGGRESSIVE ADJECTIVE BAN).
+In English, AI models automatically insert descriptive fluff. YOU MUST MANUALLY SUPPRESS THIS.
 Never use: instantly, suddenly, immediately, desperately, violently, brutally, heavily, directly, completely, utterly, totally, deeply, fiercely, absolutely, literally, overwhelming, suffocating, unforgiving, unrelenting, unadulterated, undeniable, inevitable, inescapable.
-If a sentence needs one of these to work — rewrite the sentence.
+BANNED ADJECTIVES: heavy, dark, massive, thick, intense, absolute, pure, sharp, deep, cold, fierce, terrifying, horrific, brilliant, stunning, incredible, chaotic, ominous, pristine.
+If a sentence needs one of these to work — rewrite the sentence entirely using verbs and nouns.
+Instead of "The massive heavy gear", say "The gear".
+Instead of "The dark terrifying room", say "The room lacked light".
 
 3. ONE ADJECTIVE PER NOUN. MAXIMUM.
+But prefer ZERO. When in doubt, use zero adjectives.
 Never stack: "cold, dark, suffocating silence" -> "silence"
 Never stack: "exhausted, trembling, weak hands" -> "my hands"
-When in doubt, use zero adjectives.
+
+4. CRITICAL VOLUME EXPANSION PROTOCOL (DEEP IMMERSION):
+To reach 1,600+ words WITHOUT using banned adjectives, you MUST expand micro-actions. Do NOT summarize time.
+Slow down time during critical moments. Detail the physical mechanics, the environmental shifts, the protagonist's tactical calculations, and the microscopic movements.
+Instead of: "We fought and I dodged his lethal strike."
+Write: "He struck. Air snapped. Dust shifted on the floor. I calculated the trajectory. Aimed at ribs. Lethal force. I shifted my weight left. Two inches. The blade grazed my shirt."
+The writing must flow naturally, like a highly observant tactician, NOT like a literal robot. Do not literally write words like 'TICK' or 'TOCK'. Weave the micro-actions organically into the narrative.
 
 EXAMPLES OF BAD VS GOOD WRITING:
 [RUSSIAN EXAMPLES]
@@ -6212,7 +6223,7 @@ GOOD: "The core's light bled through the glass. The city was falling."
 BAD: "The stale air in the dark room reeked of stagnant, metallic rust and old, burnt machine oil."
 GOOD: "The air smelled of rust and oil."
 
-4. NEVER NAME EMOTIONS. EVER.
+5. NEVER NAME EMOTIONS. EVER.
 BANNED FOREVER:
 - "I felt fear / relief / dread / satisfaction"
 - "A wave of X washed over me"
@@ -6223,25 +6234,25 @@ Show the physical reaction instead.
 WRONG: "Relief flooded through my exhausted body."
 RIGHT: "I exhaled. First time in an hour."
 
-5. INTERNAL MONOLOGUE = TECHNICAL REPORT.
+6. INTERNAL MONOLOGUE = TECHNICAL REPORT.
 The hero thinks in lists, numbers, and probabilities. No poetry.
 WRONG: "My brilliant mind raced through the terrifying possibilities."
 RIGHT: "Three options. Two got us killed. One might not."
 
-6. TRUST THE READER.
+7. TRUST THE READER.
 Never explain what is already obvious from context.
 If hero finds water — do not explain why water matters.
 If hero spots plague signs — state the conclusion, skip the lecture.
 WRONG: "The combination of these geological markers indicated subsurface water which would save the clan from fatal dehydration."
 RIGHT: "Water. Five feet down. Maybe four."
 
-7. DIALOGUE IS DRY.
+8. DIALOGUE IS DRY.
 Hero speaks in short, incomplete sentences.
 Hero never uses exclamation marks.
 Hero never speaks more than 2 sentences at a time.
 Other characters can speak more. Hero speaks less.
 
-8. FACE SLAP = ONE IMAGE. THEN STOP.
+9. FACE SLAP = ONE IMAGE. THEN STOP.
 After the hero wins, do not describe the reaction of everyone around him.
 Do not write that warriors finally understood his power.
 Do not write that the tribe looked at him differently now.
@@ -6249,7 +6260,7 @@ Show one physical detail. End the scene.
 WRONG: "The warriors stared at me with new reverence. They finally understood that intellect was superior to muscle."
 RIGHT: "Riku stared at the water. He said nothing."
 
-9. PARAGRAPH LENGTH.
+10. PARAGRAPH LENGTH.
 Action scene: max 2-3 sentences per paragraph.
 Calm scene: max 4 sentences per paragraph.
 Never write a wall of text. White space = tension.
