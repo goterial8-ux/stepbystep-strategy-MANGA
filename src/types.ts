@@ -185,6 +185,129 @@ If the story drifts, automatically fix the direction. Do not just "remove", repl
 - Literary -> voiceover style (short clear sentences, visual stakes, frequent twists).
 - Passive characters -> functional roles in progression (gatherer, distractor, detail spotter, comedy relief, mechanism helper).
 
+═══════════════════════════════
+PLOT STRUCTURE RULES
+═══════════════════════════════
+
+TENSION RHYTHM — NON-NEGOTIABLE
+Every scenario must follow this pattern:
+Win → Real threat that feels unwinnable → Win
+Never write 3 wins in a row without a genuine crisis between them.
+A "crisis" means: the hero has no answer yet. He is silent. He is scared. 
+He tries something and it fails first.
+If the hero solves every problem immediately — rewrite the scene.
+
+THE HERO MUST FAIL ONCE PER SCENARIO
+Not a small failure. A real one.
+Something he calculated wrong. Something he did not predict.
+He survives it — but the reader must believe for a moment that he won't.
+Without this, the hero is not a person. He is a machine. Machines are boring.
+
+ANTAGONIST RULES
+The antagonist needs one moment where he is right.
+One moment where his logic makes sense and the hero has no counter yet.
+This makes the final face slap feel earned, not guaranteed.
+A villain who is wrong about everything is not a villain. He is a prop.
+
+EXPLANATION RULES
+Every technical explanation happens ONCE.
+If the system was already shown working — do not explain it again.
+If the reader already saw the result — do not describe the principle behind it.
+Trust the reader. Show it. Move on.
+WRONG: Hero explains drainage → drainage works → hero explains drainage again during attack
+RIGHT: Hero explains drainage once → drainage works → during attack just show the result
+
+PACING — WIN COUNT PER SCENARIO
+Maximum 3 face slap moments per scenario episode.
+Each must feel bigger than the last.
+The final one must involve the antagonist directly, not just nature or a random threat.
+
+═══════════════════════════════
+ANTAGONIST DESIGN RULES
+═══════════════════════════════
+
+Every antagonist needs:
+1. A clear logic — why does he think he is right?
+2. One moment of genuine threat where the hero has no plan yet
+3. A specific weakness that only the hero's knowledge can expose
+4. A fall that is visual — not explained, but seen
+
+The antagonist must actively try to destroy the hero — not just mock him.
+Mockery is not conflict. Action is conflict.
+If the antagonist only laughs and watches — rewrite him to attack directly.
+
+═══════════════════════════════
+FACE SLAP CHECKLIST
+═══════════════════════════════
+
+Before writing the payoff moment, confirm:
+✓ The antagonist was certain he had won
+✓ The hero appeared to be losing right before the turn
+✓ The win came from one specific piece of knowledge the antagonist did not have
+✓ The reaction is ONE image — not three paragraphs
+✓ The hero does not celebrate or explain his win out loud
+
+═══════════════════════════════
+WHAT KILLS THE SCENARIO (FATAL ERRORS)
+═══════════════════════════════
+
+✗ Hero wins every challenge on the first try
+✗ Technical concept explained more than once
+✗ Antagonist who only watches and mocks but never acts
+✗ Avatar blocks that just retell the plot instead of explaining the strategic value or stakes of the action (The Avatar should explain value, not retell what just happened)
+✗ Emotional payoff described instead of shown
+✗ Hero tells another character how smart he was after the win
+✗ Scenario ends without the antagonist directly witnessing his own defeat
+
+═══════════════════════════════
+MAGIC, REAL KNOWLEDGE AND LIVING PROTAGONIST RULE
+═══════════════════════════════
+
+Do not hard-ban magic, systems, fantasy races, monsters, or supernatural world rules. They can exist in the world if the story needs them.
+
+But the protagonist’s main victories should feel earned through understandable knowledge, survival logic, engineering, observation, tactics, medicine, agriculture, construction, resource management, or logistics.
+
+Core principle:
+Fantasy can create the problem.
+Real knowledge should create the solution.
+
+Examples:
+- A magic academy humiliates the hero. The hero survives through drainage, shelter, heat, food storage, traps, and logistics.
+- A volcano is treated as an angry god. The hero studies slope, ash, steam, water, stone, and lava channels.
+- A primitive tribe fears fire. The hero uses fire for cooking, pottery, safety, warmth, and food preservation.
+- A magical enemy attacks with power. The hero wins because he prepared terrain, resources, traps, routes, weak points, or supply systems.
+
+Do not make the hero sound like he hates magic.
+Bad: "Magic is useless." / "Physics is superior to magic." / "These fools rely on mana." / "I will defeat this world with science."
+Good: He sees what magic can do, but also notices what it cannot solve. He respects useful power, but searches for cheaper, stable, repeatable solutions. He acts like a practical person, not an anti-magic preacher. He does not give speeches about science. He builds, tests, fixes, and survives.
+
+The hero should not constantly explain his worldview. Show it through actions.
+Bad: "I knew their magic was inferior because real engineering always wins."
+Good: The mages raised a shining wall. It held for one hour. His ditch kept draining water all night.
+
+The viewer should understand the logic without the hero overexplaining it.
+The hero must feel like a living person:
+- He can be tired, scared, angry, unsure, hungry, hurt, or wrong.
+- He can respect locals. He can learn from locals. He can use local tools and traditions if they work.
+- He should not act like everyone else is stupid. Locals are smart inside their worldview. The hero only has different information.
+
+Do not turn the story into a lecture.
+For each practical solution, use this rhythm:
+1. Problem appears.
+2. Hero notices one specific detail.
+3. Hero uses one understandable resource or method.
+4. The result becomes visible.
+5. Enemy or crowd reacts.
+6. Move to the next danger.
+
+Do not repeat the same idea too many times. Do not make the hero say the lesson out loud if the scene already shows it.
+
+The ideal feeling for the viewer:
+"He has no easy cheat here." / "I understand why that worked." / "I could imagine doing that too." / "He is winning because he thinks practically." / "The fantasy world is dangerous, but his solution makes sense."
+
+The final rule:
+Magic may exist. The protagonist may even use magical tools if the setting requires it. But the main satisfaction should come from practical, viewer-understandable problem solving, not from a random power, system reward, or anti-magic speech.
+
 GENRE TARGET FOR SPECIFIC PROJECT TYPE:
 If project is like "children trapped in a dark farm/school/academy/base/another world", genre direction MUST BE:
 creepy mystery + survival strategy + escape-building + team progression + light comedy relief.
